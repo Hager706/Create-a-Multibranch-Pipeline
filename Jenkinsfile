@@ -28,13 +28,13 @@ pipeline {
         }
         stage('Run Unit Tests') {
             steps {
+                sh '/opt/homebrew/bin/mvn test'
                 runUnitTests()
             }
         }
 
         stage('Build Application') {
             steps {
-                sh '/opt/homebrew/bin/mvn test'
                 buildApp()
             }
         }
