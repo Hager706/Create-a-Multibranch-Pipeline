@@ -1,5 +1,6 @@
 # 🚀 Multibranch Pipeline Setup
-
+and this the link to the shared library:
+https://github.com/Hager706/shared-library.git
 ## 1️⃣ Create Three Branches (main, stag, dev)
 ```sh
 git switch -c dev  # 🌱 Create and switch to a new branch
