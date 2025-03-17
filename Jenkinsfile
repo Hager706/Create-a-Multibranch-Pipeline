@@ -1,7 +1,9 @@
 @Library('SharedLib') _
 
 pipeline {
-      agent any
+      agent {
+        label 'ubuntu'
+    }
   tools {
     maven 'Maven'
   }
