@@ -59,6 +59,8 @@ Jenkins needs these tokens to access Kubernetes.
 4. Paste the token for the **main** namespace and give it an ID like `main-namespace-token`.
 5. Repeat for `stag` and `dev` namespaces, using IDs like `stag-namespace-token` and `dev-namespace-token`.
 
+ 📸![Alt text](assets/pic2.png)
+
 ## 7️⃣ Create a Jenkins Pipeline 🛠️
 ### Pipeline Steps:
 1. **📥 Checkout Code**: Pulls the code from the GitHub repository.
@@ -88,9 +90,9 @@ scp ~/.kube/config jenkins@192.168.105.11:~/.kube/config
 scp -r ~/.minikube jenkins@192.168.105.11:~/
 ```
 
-### ✅ Verify Access:
-On the **agent**:
-```sh
-kubectl get pods --namespace=main
+### ✅ Pipline run:
+
+ 📸![Alt text](assets/pic1.png)
+
 ```
 
