@@ -2,7 +2,9 @@
 
 pipeline {
       agent any
-  
+  tools {
+    maven 'Maven'
+  }
 
     environment {
         DOCKER_IMAGE = "hagert/multi-app"
@@ -28,8 +30,9 @@ pipeline {
         }
         stage('Run Unit Tests') {
             steps {
-                runUnitTests()
                 sh '/opt/homebrew/bin/mvn test'
+                runUnitTests()
+                
 
             }
         }
