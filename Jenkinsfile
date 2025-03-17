@@ -67,50 +67,26 @@ pipeline {
             }
         }
 
-        // stage('Deploy to Kubernetes') {
-        //     steps {
-        //         script {
-        //             sh 'test -f k8s-deployment.yaml || (echo "k8s-deployment.yaml not found" && exit 1)'
-
-        //             def KUBE_TOKEN_CRED_ID
-        //             if (BRANCH_NAME == "main") {
-        //                 KUBE_TOKEN_CRED_ID = "main-namespace-token"
-        //             } else if (BRANCH_NAME == "stag") {
-        //                 KUBE_TOKEN_CRED_ID = "stag-namespace-token"
-        //             } else if (BRANCH_NAME == "dev") {
-        //                 KUBE_TOKEN_CRED_ID = "dev-namespace-token"
-        //             } else {
-        //                 error("Unsupported branch: ${BRANCH_NAME}")
-        //             }
-
-        //             deployToK8s(NAMESPACE, KUBE_TOKEN_CRED_ID)
-        //         }
-        //     }
-        // }
         stage('Deploy to Kubernetes') {
-    steps {
-        script {
-            // Check if the deployment file exists
-            sh 'test -f k8s-deployment.yaml || (echo "k8s-deployment.yaml not found" && exit 1)'
+            steps {
+                script {
+                    sh 'test -f k8s-deployment.yaml || (echo "k8s-deployment.yaml not found" && exit 1)'
 
-            // Determine the token credential ID based on the branch
-            def KUBE_TOKEN_CRED_ID
-            if (BRANCH_NAME == "main") {
-                KUBE_TOKEN_CRED_ID = "main-namespace-token"
-            } else if (BRANCH_NAME == "stag") {
-                KUBE_TOKEN_CRED_ID = "stag-namespace-token"
-            } else if (BRANCH_NAME == "dev") {
-                KUBE_TOKEN_CRED_ID = "dev-namespace-token"
-            } else {
-                error("Unsupported branch: ${BRANCH_NAME}")
+                    def KUBE_TOKEN_CRED_ID
+                    if (BRANCH_NAME == "main") {
+                        KUBE_TOKEN_CRED_ID = "main-namespace-token"
+                    } else if (BRANCH_NAME == "stag") {
+                        KUBE_TOKEN_CRED_ID = "stag-namespace-token"
+                    } else if (BRANCH_NAME == "dev") {
+                        KUBE_TOKEN_CRED_ID = "dev-namespace-token"
+                    } else {
+                        error("Unsupported branch: ${BRANCH_NAME}")
+                    }
+
+                    deployToK8s(NAMESPACE, KUBE_TOKEN_CRED_ID)
+                }
             }
-
-            def KUBERNETES_API_SERVER = '"https://127.0.0.1:51906"'
-
-            deployToK8s(NAMESPACE, KUBE_TOKEN_CRED_ID, KUBERNETES_API_SERVER, "k8s-deployment.yaml")
         }
-    }
-}
     }
 
     post {
