@@ -1,10 +1,8 @@
 @Library('SharedLib') _
 
 pipeline {
-      agent 
-     {
-        label 'ubuntu'
-    }
+      agent any
+  
 
     environment {
         DOCKER_IMAGE = "hagert/multi-app"
@@ -36,6 +34,7 @@ pipeline {
 
         stage('Build Application') {
             steps {
+                sh '/opt/homebrew/bin/mvn test'
                 buildApp()
             }
         }

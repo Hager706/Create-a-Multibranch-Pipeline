@@ -74,6 +74,8 @@ On the master:
 ```bash
 chmod 600 ~/.kube/config
 scp ~/.kube/config jenkins@192.168.105.11:~/.kube/config
+scp -r ~/.minikube jenkins@192.168.105.11:~/
+
 ```
  Verify Access:
  on the agent:
