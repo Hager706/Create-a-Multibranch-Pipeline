@@ -105,7 +105,7 @@ pipeline {
                 error("Unsupported branch: ${BRANCH_NAME}")
             }
 
-            def KUBERNETES_API_SERVER = "https://127.0.0.1:53690"
+            def KUBERNETES_API_SERVER = 'https://192.168.49.2:8443'
 
             deployToK8s(NAMESPACE, KUBE_TOKEN_CRED_ID, KUBERNETES_API_SERVER, "k8s-deployment.yaml")
         }
