@@ -28,8 +28,9 @@ pipeline {
         }
         stage('Run Unit Tests') {
             steps {
-                sh '/opt/homebrew/bin/mvn test'
                 runUnitTests()
+                sh '/opt/homebrew/bin/mvn test'
+
             }
         }
 
