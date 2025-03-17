@@ -2,6 +2,9 @@
 
 pipeline {
       agent any
+      tools {
+        maven 'Maven'
+       }
 
     environment {
         DOCKER_IMAGE = "hagert/multi-app"
