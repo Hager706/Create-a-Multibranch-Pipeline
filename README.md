@@ -31,16 +31,17 @@ kubectl apply -f role-dev.yaml
 kubectl apply -f rolebinding-dev.yaml
 
 5. Get the Token for Each ServiceAccount:
-Extract the token for each ServiceAccount. These tokens will be used as credentials in Jenkins.
+For each namespace, create a Secret and link it to the ServiceAccount.
+#Apply the Secret file :
+kubectl apply -f jenkins-deployer-secret-main.yaml
 
-# For main namespace
-kubectl -n main get secret $(kubectl -n main get serviceaccount jenkins-deployer -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode
+#Link the Secret to the ServiceAccount:
+kubectl -n main patch serviceaccount jenkins-deployer -p '{"secrets": [{"name": "jenkins-deployer-token-main"}]}'
 
-# For stag namespace
-kubectl -n stag get secret $(kubectl -n stag get serviceaccount jenkins-deployer -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode
+#Extract Tokens for Each Namespace
+kubectl -n main get secret jenkins-deployer-token-main -o jsonpath='{.data.token}' | base64 --decode
 
-# For dev namespace
-kubectl -n dev get secret $(kubectl -n dev get serviceaccount jenkins-deployer -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode
+and the same thing for other namespaces
 
 6. Add Tokens as Credentials in Jenkins
 Jenkins needs these tokens to access Kubernetes. 
