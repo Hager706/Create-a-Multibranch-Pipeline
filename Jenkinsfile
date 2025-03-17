@@ -1,12 +1,7 @@
 @Library('SharedLib') _
 
 pipeline {
-      agent {
-        label 'ubuntu'
-    }
-//   tools {
-//     maven 'Maven'
-//   }
+      agent any
 
     environment {
         DOCKER_IMAGE = "hagert/multi-app"
