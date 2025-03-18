@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: multi-app
-  namespace: main  # Replaced with the actual namespace
 spec:
   replicas: 2
   selector:
@@ -15,6 +14,6 @@ spec:
     spec:
       containers:
         - name: multi-app
-          image: hagert/multi-app:main  # Replaced with the actual image tag
+          image: hagert/multi-app:${BRANCH_NAME}  # Replaced with the actual image tag
           ports:
             - containerPort: 80
